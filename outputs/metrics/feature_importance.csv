@@ -1,0 +1,36 @@
+Model,feature,importance_%
+Random Forest (Bagging),brand,36.927772917430914
+Random Forest (Bagging),model,29.611378309057272
+Random Forest (Bagging),ram_gb,14.50605228754654
+Random Forest (Bagging),condition,10.69580531503546
+Random Forest (Bagging),storage_gb,6.019119960873811
+Random Forest (Bagging),location,2.023544448453165
+Random Forest (Bagging),source,0.21632676160283906
+Extra Trees (Bagging),brand,35.45104180833891
+Extra Trees (Bagging),model,32.604199248289106
+Extra Trees (Bagging),condition,13.491641354259187
+Extra Trees (Bagging),ram_gb,9.091080584168818
+Extra Trees (Bagging),storage_gb,6.2878065697522185
+Extra Trees (Bagging),location,2.808654883397328
+Extra Trees (Bagging),source,0.26557555179442316
+XGBoost (Boosting),model,56.87006752412772
+XGBoost (Boosting),brand,31.2539407980807
+XGBoost (Boosting),condition,4.59023994293029
+XGBoost (Boosting),location,2.72783677357014
+XGBoost (Boosting),ram_gb,2.3088553601778874
+XGBoost (Boosting),storage_gb,1.4345511587138875
+XGBoost (Boosting),source,0.814508442399383
+LightGBM (Boosting),model,31.433333333333337
+LightGBM (Boosting),brand,23.583333333333336
+LightGBM (Boosting),location,20.933333333333334
+LightGBM (Boosting),storage_gb,11.116666666666667
+LightGBM (Boosting),ram_gb,7.433333333333334
+LightGBM (Boosting),condition,4.691666666666667
+LightGBM (Boosting),source,0.8083333333333333
+CatBoost (Boosting),brand,44.595130522155955
+CatBoost (Boosting),model,23.446813382960094
+CatBoost (Boosting),storage_gb,12.278509609464718
+CatBoost (Boosting),condition,10.179221942789447
+CatBoost (Boosting),ram_gb,8.144472504546023
+CatBoost (Boosting),location,1.0572831726572491
+CatBoost (Boosting),source,0.29856886542653593
