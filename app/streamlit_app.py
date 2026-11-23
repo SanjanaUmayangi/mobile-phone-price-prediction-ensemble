@@ -1,10 +1,3 @@
-"""Streamlit dashboard - Sri Lankan mobile phone price prediction with ensemble learning.
-
-Run from the project root:   streamlit run app/streamlit_app.py
-(Run `python -m src.train_models --rebuild` first so that models/ and outputs/ exist.)
-
-Pages: Overview | Model Comparison | Price Prediction & Fair Price Checker | Deal Finder | Model Insights
-"""
 import sys
 from pathlib import Path
 
@@ -22,7 +15,7 @@ from src.evaluate import key_findings, mark_best
 st.set_page_config(page_title="LK Mobile Phone Price Predictor", page_icon="📱", layout="wide")
 
 
-# ----------------------------------------------------------------------------- data loading
+# ---------------- data loading-----------
 @st.cache_data
 def read_csv(path):
     return pd.read_csv(path) if Path(path).exists() else None
@@ -52,8 +45,6 @@ if clean is None or test_df is None:
 PAGES = ["Overview", "Model Comparison", "Price Prediction & Fair Price Checker", "Deal Finder", "Model Insights"]
 st.sidebar.title("📱 Phone Price Predictor")
 page = st.sidebar.radio("Page", PAGES)
-st.sidebar.caption("CM4371 Machine Learning & Pattern Recognition - Ensemble Learning assignment")
-st.sidebar.caption("Innovation: **Fair Price Checker** - is an advertised price fair, a good deal or overpriced?")
 
 
 def rs(x):
@@ -70,7 +61,7 @@ def verdict_box(verdict, diff, tol):
         st.info("⚖️ " + msg)
 
 
-# ----------------------------------------------------------------------------- Overview
+# ----------Overview-------------
 if page == "Overview":
     st.title("Sri Lankan Mobile Phone Price Prediction")
     st.write("Predicts the **advertised / catalogue price (LKR)** of a phone from its brand, model, condition, "
@@ -100,9 +91,9 @@ if page == "Overview":
     st.subheader("Sample rows")
     st.dataframe(clean.drop(columns=[c for c in ["ad_url", "suspicious_price"] if c in clean.columns]).head(10))
     st.caption("ikman.lk prices are sellers' asking prices (used and new); Dialog prices are retail catalogue prices "
-               "for brand-new phones. Neither is a confirmed sale price.")
+               "for brand-new phones.")
 
-# ----------------------------------------------------------------------------- Model comparison
+# ----------- Model comparison--------------
 elif page == "Model Comparison":
     st.title("Model Comparison")
     st.caption("Final numbers are on the untouched 15% test set. Models were refitted on train + validation data; "
@@ -169,7 +160,7 @@ elif page == "Model Comparison":
         st.dataframe(w_df)
         st.line_chart(w_df.set_index("rf_weight")["val_MAE"])
 
-# ----------------------------------------------------------------------------- Prediction + Fair Price Checker
+# ----------- Prediction + Fair Price Checker--------------
 elif page == "Price Prediction & Fair Price Checker":
     st.title("Predict a price - and check if an advert is fair")
     models = get_models()
@@ -220,7 +211,7 @@ elif page == "Price Prediction & Fair Price Checker":
         with st.expander("Input sent to the models"):
             st.dataframe(row)
 
-# ----------------------------------------------------------------------------- Deal Finder
+# --------------Deal Finder-------------
 elif page == "Deal Finder":
     st.title("Deal Finder - scan real listings")
     st.write("Every listing in the held-out **test set** (never seen by the models while training) is compared "
@@ -259,7 +250,7 @@ elif page == "Deal Finder":
     st.caption("Sorted from the biggest discount to the biggest premium. Always open the advert and check the "
                "phone's real condition before trusting a verdict.")
 
-# ----------------------------------------------------------------------------- Insights
+# ----------- Insights------------
 else:
     st.title("Model Insights")
     st.subheader("The approaches")
@@ -282,8 +273,7 @@ else:
     if interp.exists():
         st.markdown(interp.read_text())
     else:
-        st.info("Write your interpretation in `outputs/interpretation.md` (see the last cell of notebook 07) "
-                "and it will appear here.")
+        st.info("")
     for line in key_findings(test_df, val_df, gap_df):
         st.markdown(f"- {line}")
 
@@ -292,17 +282,4 @@ else:
         st.caption("Permutation importance on the test set: how much MAE increases when a feature is shuffled.")
         st.bar_chart(pi_df.set_index("feature")["mae_increase"])
 
-    st.subheader("Limitations")
-    st.table(pd.DataFrame({
-        "Limitation": ["Asking prices", "Mixed sources", "Extracted specs", "Small Dialog sample",
-                       "Time", "Limited data", "Fair Price Checker"],
-        "Explanation": [
-            "ikman prices are what sellers ask, not what buyers pay.",
-            "ikman asking prices and Dialog catalogue prices follow different patterns; `source` is a model feature.",
-            "RAM/storage are parsed from ad text; some ads omit or mis-state them.",
-            "Dialog-specific error estimates rest on few rows.",
-            "Phone prices change over time and the data is a snapshot.",
-            "About 5,000 listings cannot cover every phone model in Sri Lanka.",
-            "The verdict only compares with the model's estimate; it cannot see damage, accessories or warranty."]}))
-    st.caption("AI assistance: code was generated with Claude (Anthropic) and reviewed/adapted by the student - "
-               "see AI_DISCLOSURE.md.")
+    
