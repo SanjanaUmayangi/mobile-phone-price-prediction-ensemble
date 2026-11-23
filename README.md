@@ -29,7 +29,7 @@ The merged file `data/mobile_phones_raw.csv` has 5,000+ rows before cleaning. It
 * **ikman.lk** adverts: the price the seller asks (new and used phones).
 * **Dialog** catalogue prices: retail prices of brand-new phones (under 1% of the data).
 
-I started from the CSV in the reference repository https://github.com/mskanishkaudayanga/ML-Algorithems-model (used only as a starting point) and added the ikman.lk and Dialog data. 
+I started with the CSV dataset from the reference repository and extended it by adding data collected from ikman.lk and Dialog.
 
 After cleaning and preprocessing, the data was split into 70% training, 15% validation, and 15% testing sets. The target is an *asking or catalogue price*, not a confirmed sale price.
 
