@@ -51,7 +51,7 @@ After cleaning and preprocessing, the data was split into 70% training, 15% vali
 
 
 ## Project Structure
-
+```text
 Mobile Phone Price Prediction Ensemble/
 │
 ├── data/
@@ -91,7 +91,7 @@ Mobile Phone Price Prediction Ensemble/
 │
 ├── README.md                          # Project documentation
 └── .gitignore                         # Git ignore rules
-
+```
 
 
 
