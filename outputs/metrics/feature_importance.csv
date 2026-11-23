@@ -1,18 +1,18 @@
 Model,feature,importance_%
-Random Forest (Bagging),brand,36.927772917430914
-Random Forest (Bagging),model,29.611378309057272
-Random Forest (Bagging),ram_gb,14.50605228754654
-Random Forest (Bagging),condition,10.69580531503546
-Random Forest (Bagging),storage_gb,6.019119960873811
-Random Forest (Bagging),location,2.023544448453165
-Random Forest (Bagging),source,0.21632676160283906
-Extra Trees (Bagging),brand,35.45104180833891
-Extra Trees (Bagging),model,32.604199248289106
-Extra Trees (Bagging),condition,13.491641354259187
-Extra Trees (Bagging),ram_gb,9.091080584168818
-Extra Trees (Bagging),storage_gb,6.2878065697522185
-Extra Trees (Bagging),location,2.808654883397328
-Extra Trees (Bagging),source,0.26557555179442316
+Random Forest (Bagging),brand,34.81295736595803
+Random Forest (Bagging),model,31.937772818994446
+Random Forest (Bagging),ram_gb,13.475064309565127
+Random Forest (Bagging),condition,9.912899767631435
+Random Forest (Bagging),storage_gb,6.0358757512022585
+Random Forest (Bagging),location,3.606692810885803
+Random Forest (Bagging),source,0.2187371757628855
+Extra Trees (Bagging),model,33.51434553991812
+Extra Trees (Bagging),brand,32.389378025254864
+Extra Trees (Bagging),condition,11.728099031173157
+Extra Trees (Bagging),storage_gb,10.418144969278153
+Extra Trees (Bagging),ram_gb,8.445710960895077
+Extra Trees (Bagging),location,3.0863607545568583
+Extra Trees (Bagging),source,0.41796071892376135
 XGBoost (Boosting),model,56.87006752412772
 XGBoost (Boosting),brand,31.2539407980807
 XGBoost (Boosting),condition,4.59023994293029
