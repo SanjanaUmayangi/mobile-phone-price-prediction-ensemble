@@ -282,4 +282,72 @@ else:
         st.caption("Permutation importance on the test set: how much MAE increases when a feature is shuffled.")
         st.bar_chart(pi_df.set_index("feature")["mae_increase"])
 
-    
+        st.subheader("Research discussion")
+
+    st.markdown("**Random Forest vs gradient boosting**")
+    st.table(pd.DataFrame({
+        "Aspect": ["How trees are built", "Main effect", "Speed", "Tuning effort",
+                   "Over-fitting risk", "Categorical features", "Typical accuracy on tabular data"],
+        "Random Forest (bagging)": [
+            "Many deep trees independently, in parallel, on bootstrap samples",
+            "Reduces variance (averaging de-correlated trees)",
+            "Easy to parallelise",
+            "Few important knobs; works well with defaults",
+            "Low: more trees do not over-fit",
+            "scikit-learn needs encoding (one-hot here)",
+            "Strong, robust baseline"],
+        "Gradient boosting (XGBoost / LightGBM / CatBoost)": [
+            "Many shallow trees one after another; each fits the previous errors",
+            "Reduces bias; learning rate controls variance",
+            "Sequential, but histogram methods make LightGBM / XGBoost fast",
+            "More knobs; needs tuning / early stopping",
+            "Higher: too many rounds or deep trees over-fit",
+            "LightGBM / CatBoost can handle categories natively; here all models use the same one-hot features",
+            "Often best when tuned, but on small data (~5k rows) the gap can be small or reversed"],
+    }).set_index("Aspect"))
+
+    with st.expander("Stacking and hybrid"):
+        st.markdown(
+            "- **Stacking** helps only if base models make different errors. RF and the boosters are all tree "
+            "ensembles on the same features, so their errors are highly correlated, which limits the gain.\n"
+            "- **Hybrid RF + ANN** mixes two different learners (trees: piecewise-constant; neural net: smooth). "
+            "It can help when their errors differ; the validation-chosen weight shows which one the data prefers.")
+
+    with st.expander("Tree ensembles: tabular vs image/text data"):
+        st.markdown(
+            "**Tabular:** handle mixed columns, need little scaling, capture non-linear effects, work with "
+            "small/medium data, and are explainable. Limitations: cannot extrapolate beyond the training price "
+            "range, one-hot encoding inflates features, prices age quickly.\n\n"
+            "**Image/text:** raw pixels or words have no meaningful single-column features, so trees perform "
+            "poorly without embeddings. CNNs and transformers are the standard choice; trees still work on top "
+            "of extracted features.")
+
+    with st.expander("Conclusions"):
+        st.markdown(
+            "- Hybrid RF + ANN achieved the best test performance (MAE Rs. 15,810, R² 0.865), reducing Ridge's error by 22%.\n"
+            "- Random Forest was a close second, faster and simpler.\n"
+            "- Boosting did not outperform Random Forest with default settings.\n"
+            "- Stacking did not improve MAE: base models made similar errors and training took longer.\n"
+            "- Future work: tune boosting models, collect more data, improve spec extraction.")
+
+    with st.expander("References"):
+        st.markdown(
+            "- Breiman, L. (2001). Random Forests. *Machine Learning*, 45, 5-32.\n"
+            "- Chen, T. & Guestrin, C. (2016). XGBoost. *KDD*.\n"
+            "- Ke, G. et al. (2017). LightGBM. *NeurIPS*.\n"
+            "- Prokhorenkova, L. et al. (2018). CatBoost. *NeurIPS*.\n"
+            "- Wolpert, D. H. (1992). Stacked generalization. *Neural Networks*, 5(2).\n"
+            "- Grinsztajn, L. et al. (2022). Why do tree-based models still outperform deep learning on typical tabular data? *NeurIPS Datasets and Benchmarks*.")    
+
+    st.subheader("Limitations")
+    st.table(pd.DataFrame({
+        "Limitation": ["Asking prices", "Mixed sources", "Extracted specs", "Small Dialog sample",
+                       "Time", "Limited data"],
+        "Explanation": [
+            "ikman prices are what sellers ask, not what buyers pay.",
+            "ikman asking prices and Dialog catalogue prices follow different patterns; `source` is a model feature.",
+            "RAM/storage are parsed from ad text; some ads omit or mis-state them.",
+            "Dialog-specific error estimates rest on few rows.",
+            "Phone prices change over time and the data is a snapshot.",
+            "About 5,000 listings cannot cover every phone model in Sri Lanka."]}))
+   
